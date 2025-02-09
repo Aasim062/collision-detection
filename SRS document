@@ -1,0 +1,433 @@
+Software Requirements Specification
+for
+Collision Predictor for Vehicles in Road
+
+
+
+Prepared by 
+Group Name:
+
+
+                                                                                                        		
+		
+Rizwan Khan	             BT23CIV029	
+		
+Mohammad Aasim                   	BT23CSE002	
+
+Instructor:	Miss. Nritya Sharma
+Course:	Software Engineering
+Lab Section:	Group-1
+	
+Date:	3rd February 2025
+Contents
+CONTENTS	II
+REVISIONS	II
+1	INTRODUCTION	1
+1.1	DOCUMENT PURPOSE	1
+1.2	PRODUCT SCOPE	1
+1.3	INTENDED AUDIENCE AND DOCUMENT OVERVIEW	1
+1.4	DEFINITIONS, ACRONYMS AND ABBREVIATIONS	1
+1.5	DOCUMENT CONVENTIONS	1
+1.6	REFERENCES AND ACKNOWLEDGMENTS	2
+2	OVERALL DESCRIPTION	2
+2.1	PRODUCT OVERVIEW	2
+2.2	PRODUCT FUNCTIONALITY	3
+2.3	DESIGN AND IMPLEMENTATION CONSTRAINTS	3
+2.4	ASSUMPTIONS AND DEPENDENCIES	3
+3	SPECIFIC REQUIREMENTS	4
+3.1	EXTERNAL INTERFACE REQUIREMENTS	4
+3.2	FUNCTIONAL REQUIREMENTS	4
+3.3	USE CASE MODEL	5
+4	OTHER NON-FUNCTIONAL REQUIREMENTS	6
+4.1	PERFORMANCE REQUIREMENTS	6
+4.2	SAFETY AND SECURITY REQUIREMENTS	6
+4.3	SOFTWARE QUALITY ATTRIBUTES	6
+5	OTHER REQUIREMENTS	7
+APPENDIX A – DATA DICTIONARY	8
+APPENDIX B - GROUP LOG	9
+
+
+
+
+
+
+
+
+Revisions
+Version	Primary Author(s)	Description of Version	Date Completed
+Draft Type and Number	Full Name	Information about the revision. This table does not need to be filled in whenever a document is touched, only when the version is being upgraded.	00/00/00
+
+
+
+ 
+1	Introduction
+<TO DO: Please provide a brief introduction to your project and a brief overview of what the reader will find in this section.>
+1.1	Document Purpose 
+This document defines the requirements for the Collision Predictor System, a machine learning-based solution designed to analyze top-view road intersection videos. The system identifies collision-prone regions, predicts the type of collisions (e.g., head-on, rear-side, front-end), and provides actionable insights to users and transport authorities for improved traffic safety and management. The purpose of this document is to provide a comprehensive description of the system's functionality, constraints, and requirements to guide its development and implementation.
+1.2	Product Scope
+This document defines the requirements for the Collision Predictor System, a machine learning-based solution designed to analyze top-view road intersection videos. The system identifies collision-prone regions, predicts the type of collisions (e.g., head-on, rear-side, front-end), and provides actionable insights to users and transport authorities for improved traffic safety and management. The purpose of this document is to provide a comprehensive description of the system's functionality, constraints, and requirements to guide its development and implementation.
+1.3	Intended Audience and Document Overview
+Intended Audience:
+
+Transport authorities, urban planners, traffic control authorities, and system administrators.
+
+Document Overview:
+
+This document provides a detailed description of the system's requirements, including functional and non-functional requirements, design constraints, and assumptions.
+1.4	Definitions, Acronyms and Abbreviations
+•  YOLOv8: You Only Look Once version 8, a state-of-the-art object detection model.
+•  OpenCV: Open Source Computer Vision Library, used for image and video processing.
+•  FPS: Frames per second, a measure of how many video frames the system can process per second.
+•  Confusion Matrix: A table used to evaluate the performance of a classification model.
+•  Speed Curve: A graphical representation of the speed of objects over time.
+•  CI/CD Pipeline: Continuous Integration/Continuous Deployment, a method for automating software testing and deployment.
+
+1.5	Document Conventions
+Font: Times New Roman or Arial for a professional look.
+
+Font Size:
+
+Title: 16pt, Bold, Centered.
+
+Headings: 14pt, Bold.
+
+Subheadings: 12pt, Bold.
+
+Body Text: 11pt, Regular.
+
+Line Spacing: 1.5 or double-spaced for readability.
+
+Margins: 1 inch on all sides to ensure proper formatting.
+1.6	References and Acknowledgments
+YOLOv8 Documentation: YOLOv8 Official Documentation
+
+OpenCV Documentation: OpenCV Official Documentation
+
+IEEE 830-1998 Standard: IEEE 830-1998
+
+TensorFlow Documentation: TensorFlow Official Documentation
+
+PyTorch Documentation: PyTorch Official Documentation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Overall Description
+1.7	Product Overview
+The Collision Predictor System is an independent software solution that integrates with existing video capture systems (e.g., drones, surveillance cameras). It processes video data to identify collision-prone regions, predict collision types, and generate reports for transport authorities. The system leverages machine learning and computer vision techniques to provide actionable insights for improving road safety and traffic management.
+1.8	Product Functionality 
+Video Processing and Collision Prediction:
+
+The system analyzes top-view road intersection videos to detect collision-prone regions.
+
+It predicts the type of collisions (e.g., head-on, rear-side, front-end) based on object trajectories and behavioral patterns.
+
+The system categorizes collision risks into high, medium, and low levels to prioritize areas for intervention.
+
+Speed and Direction Estimation:
+
+The system estimates the speed and direction of detected objects (e.g., vehicles, pedestrians) using OpenCV.
+
+It generates speed curves to visualize the speed of objects over time, providing insights into traffic flow patterns.
+
+Reporting and Visualization:
+
+The system generates detailed reports in PDF and JSON formats for transport authorities.
+
+Reports include visualizations such as confusion matrices (to evaluate model performance) and accuracy charts (to display prediction accuracy).
+
+The system provides a user-friendly dashboard for uploading videos, viewing predictions, and downloading reports.
+
+Transport Department Notifications:
+
+The system sends automated notifications to transport authorities with detailed reports and recommendations for traffic improvement.
+
+Notifications include actionable insights for infrastructure adjustments and traffic management.
+1.9	Design and Implementation Constraints
+Video Quality: The system requires clear and stable top-view video footage for accurate analysis. Poor-quality videos may lead to incorrect predictions.
+
+Hardware Limitations: The system's performance depends on the hardware used for video processing. Resource-constrained devices (e.g., Raspberry Pi) may have slower processing speeds.
+
+Model Accuracy: The system's collision prediction accuracy is limited by the quality of the training data and the complexity of traffic scenarios.
+1.10	Assumptions and Dependencies
+Assumptions:
+
+The system assumes that video footage is captured from a top-view perspective and is of sufficient quality for analysis.
+
+It assumes that transport authorities will use the system's insights to implement traffic management measures.
+
+Dependencies:
+
+The system depends on machine learning libraries (e.g., TensorFlow, PyTorch) and computer vision tools (e.g., OpenCV) for object detection and speed estimation.
+
+It relies on Python as the primary programming language for development.
+
+
+
+
+
+
+
+
+
+
+
+Specific Requirements
+1.11	External Interface Requirements
+1.11.1	User Interfaces
+The system shall provide a web-based dashboard for users to upload videos, view collision predictions, and download reports.
+
+The dashboard shall include visualizations such as speed curves, confusion matrices, and accuracy charts.
+1.11.2	Hardware Interfaces
+The system shall be compatible with drones and surveillance cameras for video input.
+
+It shall support hardware acceleration (e.g., GPUs) for faster video processing.
+1.11.3	Software Interfaces
+The system shall include an API for sending reports and notifications to transport authorities.
+
+The API shall support secure communication protocols (e.g., HTTPS) to ensure data privacy.
+1.12	Functional Requirements
+Video Input:
+
+The system shall accept top-view road intersection videos in standard formats (e.g., MP4, MOV).
+
+It shall validate video quality (e.g., resolution, stability) before processing.
+
+Object Detection:
+
+The system shall detect objects (e.g., vehicles, pedestrians) using YOLOv8 with an accuracy of over 90%.
+
+It shall generate bounding boxes and class labels for detected objects.
+
+Speed and Direction Estimation:
+
+The system shall estimate the speed and direction of detected objects using OpenCV.
+
+It shall generate speed curves to visualize object speed over time.
+
+Collision Prediction:
+
+The system shall predict collision-prone regions and categorize collision types (e.g., head-on, rear-side, front-end).
+
+It shall assign risk levels (high, medium, low) to collision-prone areas.
+
+Reporting:
+
+The system shall generate PDF/JSON reports with visualizations (e.g., speed curves, confusion matrices, accuracy charts).
+
+Reports shall include actionable insights for transport authorities.
+
+1.13	Use Case Model
+TO DO: Provide a use case diagram that will encapsulate the entire system and all actors. 
+
+1.13.1	Use Case #1 (use case name and unique identifier – e.g. U1)
+TO DO: Provide a specification for each use case diagram 
+Author – Identify team member who wrote this use case
+Purpose - What is the basic objective of the use-case. What is it trying to achieve? 
+Requirements Traceability – Identify all requirements traced to this use case
+Priority - What is the priority. Low, Medium, High.  Importance of this use case being completed and functioning properly when system is depolyed
+Preconditions - Any condition that must be satisfied before the use case begins
+Post conditions - The conditions that will be satisfied after the use case successfully completes
+Actors – Actors (human, system, devices, etc.) that trigger the use case to execute or provide input to the use case
+Extends – If this is an extension use case, identify which use case(s) it extends
+Flow of Events
+1.	Basic Flow - flow of events normally executed in the use-case
+2.	Alternative Flow - a secondary flow of events due to infrequent conditions
+3.	Exceptions - Exceptions that may happen during the execution of the use case
+Includes (other use case IDs)
+Notes/Issues - Any relevant notes or issues that need to be resolved
+Other Non-functional Requirements
+1.14	Performance Requirements
+The system shall process video frames at 30 FPS for real-time analysis.
+
+The collision prediction algorithm shall provide results within 2 seconds of receiving input.
+
+The system shall handle up to 10 simultaneous video streams without performance degradation.
+1.15	Safety and Security Requirements
+•	All video data shall be encrypted during processing, storage, and transmission to ensure data privacy.
+
+•	The system shall require user authentication (e.g., login/password) to access reports and predictions.
+
+•	The model shall be protected against tampering or corruption to prevent false predictions.
+1.16	Software Quality Attributes
+Reliability: The system shall achieve a collision prediction accuracy of over 90%.
+
+Maintainability: The system shall be modular, allowing for easy updates and maintenance.
+
+Portability: The system shall run on Windows, Linux, and Raspberry Pi platforms.
+Other Requirements
+The system shall be scalable to handle 50 or 100+ video streams with additional hardware resources.
+
+It shall include audit logs to track unauthorized access or changes to the model.
+
+The system shall be designed to handle edge cases (e.g., chaotic traffic, low-light conditions) without significant degradation in performance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Appendix A – Data Dictionary
+Video Data: Top-view road intersection videos in MP4/MOV format.
+
+Collision Types: Head-on, rear-side, front-end.
+
+Speed Curve: Graphical representation of object speed over time.
+
+Confusion Matrix: Table used to evaluate model performance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Appendix B - Group Log
+Phase 1: Data Collection and Preprocessing (1.5 Months)
+Week 1-2: Define data requirements and identify sources for top-view road intersection videos.
+
+Week 3-4: Collect video data from drones and surveillance cameras.
+
+Week 5-6: Preprocess the data (e.g., stabilize videos, remove noise, annotate objects).
+
+Deliverable: A clean, annotated dataset ready for model training.
+
+Phase 2: Model Development and Training (2 Months)
+Week 1-2: Set up the development environment (e.g., install Python, TensorFlow, PyTorch, OpenCV).
+
+Week 3-4: Implement YOLOv8 for object detection and fine-tune the model on the collected dataset.
+
+Week 5-6: Develop the speed and direction estimation module using OpenCV.
+
+Week 7-8: Build the collision prediction algorithm and integrate it with the object detection and speed estimation modules.
+
+Deliverable: A working prototype capable of detecting objects, estimating speed/direction, and predicting collisions.
+
+Phase 3: Testing and Optimization (1 Month)
+Week 1-2: Test the system on unseen video data and evaluate performance metrics (e.g., accuracy, FPS).
+
+Week 3-4: Optimize the model for better accuracy and real-time performance.
+
+Week 5: Conduct edge-case testing (e.g., chaotic traffic, low-light conditions) and refine the model.
+
+Deliverable: A fully tested and optimized system ready for deployment.
+
+Phase 4: Reporting and Visualization (2 Weeks)
+Week 1: Develop the reporting module to generate PDF/JSON reports with visualizations (e.g., speed curves, confusion matrices, accuracy charts).
+
+Week 2: Integrate the reporting module with the main system and test end-to-end functionality.
+
+Deliverable: A complete system with reporting and visualization capabilities.
+
+Phase 5: Deployment and Documentation (2 Weeks)
+Week 1: Deploy the system on target platforms (e.g., Windows, Linux, Raspberry Pi) and ensure compatibility.
+
+Week 2: Document the system (e.g., user manuals, developer guides, API documentation).
+
+Deliverable: A fully deployed and documented system ready for use.
+
